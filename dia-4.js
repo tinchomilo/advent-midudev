@@ -26,6 +26,59 @@ Ten en cuenta que el árbol es un string y necesitas los saltos de línea \n par
 */
 
 export default function createXmasTree(height) {
-    // ¡Y no olvides también poner los turrones!
-    return ''
+  // ¡Y no olvides también poner los turrones!
+  if( height < 1 || height > 100 ){
+      return false
   }
+
+  let arbol = [1]
+  let obj = {}
+  let i = 0
+  let base = ''
+  let copa = ''
+  let lineas = ''
+  let guiones = ''
+  let ateriscos = ''
+  let aux = 0
+  
+  while( arbol.length != height)  {
+      if( i % 2 !== 0){
+          arbol.push( i + 2 )
+      }
+      i++
+  }
+       
+  for (let i = 0; i < arbol.length; i++) {
+      aux = arbol[arbol.length -1 ] - arbol[i] 
+      if( aux !== 0){
+          for (let j = 0; j < aux; j++) {                
+              lineas += '_'
+          }       
+      } 
+      for (let k = 0; k < arbol[i]; k++) {
+          lineas += '*'            
+      }
+      obj[arbol[i]] = lineas
+
+      lineas = ''     
+  }
+  
+  for( let clave in obj ) {
+      guiones = obj[clave].split('').filter( elem => elem === '_')
+      ateriscos = obj[clave].split('').filter( elem => elem === '*').join('')
+      guiones.splice(guiones.length/2, 0, ateriscos ).join('')
+      obj[clave] = guiones.join('')
+      copa += obj[clave] + '\n'
+  }
+
+  for( let i = 0; i < arbol[arbol.length -1]; i++ ) {        
+      if( i === Math.floor( arbol[arbol.length -1 ] / 2 ) ) {
+          base += '#'
+      } else {
+          base +='_' 
+      }
+  }
+  base = base + '\n' + base
+
+  return copa + base
+}
