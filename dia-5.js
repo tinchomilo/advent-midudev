@@ -32,5 +32,7 @@ Por cierto, la fecha de referencia para saber si es 25 de diciembre es Dec 25, 2
 
 export default function daysToXmas(date) {
     // ¡Y no olvides compartir tu solución en redes!
-    return 0
+    const xmasDate = new Date(2021, 11, 25);
+    const msInADay = 1000 * 60 * 60 * 24;
+    return Math.ceil((xmasDate - date) / msInADay);
   }
